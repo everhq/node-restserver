@@ -46,5 +46,5 @@ app.delete('/usuario', function(req, res) {
 })
 
 app.listen(process.env.PORT, () => {
-    console.log('escuchando puerto', 3000);
+    console.log('escuchando puerto', process.env.PORT);
 })
