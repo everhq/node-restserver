@@ -59,8 +59,28 @@ app.put('/upload/:tipo/:id', function(req, res) {
     // Cambiar nombre al archivo
     // 183912kuasidauso-123.jpg
     let nombreArchivo = `${ id }-${ new Date().getMilliseconds()  }.${ extension }`;
-
-
+    //////////////////////////////////
+    try {
+        fs.mkdirSync(path.resolve(__dirname, `../../uploads`));
+    } catch (err) {
+        if (err.code !== 'EEXIST') {
+            return res.status(500).json({
+                ok: false,
+                error: err
+            });
+        }
+    }
+    try {
+        fs.mkdirSync(path.resolve(__dirname, `../../uploads/${tipo}`));
+    } catch (err) {
+        if (err.code !== 'EEXIST') {
+            return res.status(500).json({
+                ok: false,
+                error: err
+            });
+        }
+    }
+    ////////////////////////////////////////////
     archivo.mv(`uploads/${ tipo }/${ nombreArchivo }`, (err) => {
 
         if (err)
